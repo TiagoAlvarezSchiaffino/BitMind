@@ -1,12 +1,12 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
 
 const API_URL = import.meta.env.API_URL;
 
 const tags_data = await fetch (`${API_URL}/api/v2/tags`);
 const tags = await tags_data.json();
 
-const pageTitle = 'Tags';
+const pageTitle = 'Tags Index';
 ---
 
 <Layout pageTitle={pageTitle}>
@@ -16,10 +16,10 @@ const pageTitle = 'Tags';
             <p>All the tags used.</p>
         </div>
 
-        <div class="flex lg:flex-row flex-col">
+        <div class="flex lg:flex-row flex-col flex-wrap">
             {
                 tags.items?.map((item) => (
-                    <a href="" class="text-xl me-5 mb-3 lg:mb-0 font-bold text-[#D81159] hover:border-b-4 hover:border-[#FF80CC] hover:border-dashed">
+                    <a href={`/tags/${item.name}`} class="text-xl me-5 mb-3 md:mb-5 font-bold text-[#D81159] hover:border-b-4 hover:border-[#FF80CC] hover:border-dashed">
                     {`#${item.name}`}
                     </a>
                 ))
