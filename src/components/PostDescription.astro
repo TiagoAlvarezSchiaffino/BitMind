@@ -1,0 +1,15 @@
+---
+const {postCategory, postDate, postDescription, postTitle,} = Astro.props
+---
+
+<div class="w-2/3 mb-5">
+    <a  class="text-xl font-bold text-[#D81159] hover:border-b-4 hover:border-[#FF80CC] hover:border-dashed">
+        {postTitle}
+    </a>
+    <p class="text-gray-500 mt-1 mb-2">
+        <i class='bx bxs-calendar me-1'></i>
+        {postDate}
+    </p>
+    <p>{postCategory}</p>
+    <p>{postDescription}</p>
+</div>

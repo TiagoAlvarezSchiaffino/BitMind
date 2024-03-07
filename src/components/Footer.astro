@@ -1,0 +1,18 @@
+---
+import Social from './Social.astro';
+import Separator from './Separator.astro';
+
+const currentYear = new Date().getFullYear()
+---
+
+<footer class="sticky top-[100vh]">
+    <Separator />
+
+    <div class="flex flex-col lg:flex-row items-center justify-between ">
+        <p class="lg:text-base text-sm mb-5 lg:mb-0"><a href="https://www.linkedin.com/in/tiago-alvarez-schiaffino/" target="_blank" rel="noopener noreferrer" class="hover:underline">Tiago Alvarez Schiaffino</a> - <a href="TiagoAlvarezSchiaffinoCV.pdf" target="_blank" rel="noopener noreferrer" class="hover:underline">Developer</a> | © {currentYear}</p>
+
+            <Social platform="github" username="TiagoAlvarezSchiaffino"/>
+            <Social platform="linkedin" username="TiagoAlvarezSchiaffino"/>
+            <Social platform="linktree" username=""/>
+    </div>
+</footer>

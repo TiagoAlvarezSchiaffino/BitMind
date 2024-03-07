@@ -1,0 +1,53 @@
+---
+import Switch from "./Switch.astro"
+
+const navItems = [
+  {
+    title: 'Posts',
+    url: '/#posts',
+    label: "posts"
+  },
+  {
+    title: 'Tags',
+    url: '/#tags',
+    label: "tags"
+  },
+  {
+    title: 'About',
+    url: '/#about',
+    label: "about"
+  }
+]
+---
+<nav class={`
+    px-3
+    text-sm font-medium
+    flex justify-center items-center
+  `}>
+      {
+        navItems.map((link) => (
+          <a 
+            class="relative block px-2 py-2 transition sm:px-3 me-5 font-bold text-lg hover:text-violet-300"
+            aria-label={link.label}
+            href={link.url}
+            >
+              {link.title}
+            </a>
+          ))
+        }
+    <Switch />
+</nav>
+
+<style>
+    nav {
+      animation: nav-shadown 1s linear both;
+      animation-timeline: scroll();
+      animation-range: 0 100px;
+    }
+  
+    @keyframes nav-shadown {
+      to {
+        @apply shadow-lg ring-1 backdrop-blur bg-gray-300/60 dark:bg-gray-800/60 ring-white/10;
+      }
+    }
+  </style>

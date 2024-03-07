@@ -1,0 +1,106 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Separator from '../components/Separator.astro';
+import Newsletter from '../components/Newsletter.astro'
+
+import '@fontsource-variable/fira-code';
+
+const {pageTitle} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset = "UTF-8"/>
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{pageTitle} - BitMind</title>
+	</head>
+
+	<body>
+		<Header />
+		<Newsletter />
+		<Separator />
+
+    <slot />
+
+    <Footer />
+
+    <style is:global>
+
+		:root {
+          color-scheme: light dark;
+        }
+        
+        ::-webkit-scrollbar{
+          display: none;
+        }
+
+        body {
+          @apply text-black lg:w-2/4 mx-auto bg-white p-4 min-h-screen;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          overscroll-behavior: none;
+          font-smooth: always;
+        }
+
+		html {
+          	scroll-behavior: smooth;
+			font-family: 'Fira Code Variable', monospace;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          html {
+            scroll-behavior: auto;
+          }
+        }
+
+        @media (prefers-color-scheme: dark) {
+          body {
+            color: rgba(255, 255, 255, 0.9);
+			background-color: rgb(13, 9, 9);
+          }
+        }
+        @keyframes blur {
+          to {
+            backdrop-filter: blur(20px);
+            border-width: 1px;
+            border-color: rgba(0, 0, 0);
+            padding: 0.25rem 0.75rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: rgb(229, 229, 229);
+            border-radius: 9999px;
+          }
+        }
+
+		@media (prefers-color-scheme: dark) {
+        @keyframes blur {
+          from {
+            border: 0px;
+          }
+          to {
+            box-shadow:
+              0px 5px 50px -5px rgba(0, 0, 0, 0.1),
+              0px 0px 0 1px rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border-width: 1px;
+            border-color: rgba(0, 0, 0);
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 9999px;
+          }
+        }
+      }
+    </style>
+	</body>
+</html>

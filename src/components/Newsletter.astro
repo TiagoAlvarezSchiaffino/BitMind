@@ -1,0 +1,96 @@
+<script>
+  const subscribe = (event) => {
+    event.preventDefault();
+    const btn = document.getElementById("subscribeBtn");
+    if (btn) {
+      btn.disabled = true;
+    }
+
+    const form = event.target;
+    const formData = new FormData(form);
+    const email = formData.get('email');
+
+    if (!email) {
+      if (btn) {
+        btn.disabled = false;
+      }
+      return;
+    }
+
+    fetch("https://newsletter.sadh.life/subscribe", {
+      method: "POST",
+      body: JSON.stringify({
+        email: email,
+        name: "User",
+        status: "enabled",
+        lists: [3],
+      }),
+    }).then((response) => {
+      if (btn) {
+        if (response.ok) {
+          btn.style.backgroundColor = "#007766";
+          btn.textContent = "Success!";
+        } else {
+          btn.style.backgroundColor = "red";
+          btn.textContent = "Some error occurred.";
+        }
+      }
+    });
+  };
+</script>
+
+<div class="Newsletter">
+  <h4 class="Newsletter-title">Subscribe to my newsletter:</h4>
+  <form onsubmit="subscribe(event)">
+    <label>
+      <input type="email" name="email" placeholder="Your email..." required class="Newsletter-input" />
+    </label>
+    <button id="subscribeBtn" class="Newsletter-button">Subscribe</button>
+  </form>
+</div>
+
+<style>
+  .Newsletter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+    width: 100%;
+    max-width: 400px;
+    background-color: #F5F5F5;
+  }
+  
+  .Newsletter-title {
+    color: #333333;
+  }
+
+  .Newsletter-input {
+    background-color: #FFFFFF;
+    color: #333333;
+    border: 1px solid #CCCCCC;
+    padding: 10px;
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+  }
+
+  .Newsletter-button {
+    background-color: #000000;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px;
+    width: calc(100% - 20px);
+    cursor: pointer;
+  }
+
+  .Newsletter-button:disabled {
+    background-color: #CCCCCC;
+  }
+
+  .Newsletter-button.success {
+    background-color: #4CAF50;
+  }
+
+  .Newsletter-button.error {
+    background-color: #FF5733;
+  }
+</style>

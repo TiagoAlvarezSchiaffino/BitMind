@@ -1,0 +1,86 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Social from '../components/Social.astro';
+import Separator from '../components/Separator.astro';
+import PostDescription from '../components/PostDescription.astro';
+
+const API_URL = import.meta.env.API_URL;
+
+const featured_posts_data = await fetch (`${API_URL}/api/v2/posts/?featured=true&limit=3&fields=intro`);
+const featured_posts = await featured_posts_data.json();
+
+const latest_posts_data = await fetch (`${API_URL}/api/v2/posts/?limit=3&fields=intro`);
+const latest_posts = await latest_posts_data.json();
+
+const pageTitle = 'Blog'
+---
+
+<Layout pageTitle={pageTitle}>
+	<main>
+		<div class="flex justify-center items-center md:justify-start md:flex-row flex-col md:space-x-5">
+			<img class="w-64 lg:me-5 mb-5 md:mb-0" src="/User.jpg" alt="Anime user photo">
+			<div>
+				<h1 class="text-3xl block mb-3">Well, well, well... What a pleasant surprise to see you here.</h1>
+				
+				<p class="mb-3">I'm Tiago Alvarez Schiaffino! When I'm not coding or diving into tech, I'm gaming, reading books, or getting active with some sport.</p>
+				<p class="mb-3">Started coding at 17, and has been proudly self-taught for 2 years.</p>
+				<p class="mb-3">Expect unique content and lively discussions here. Reach out, let's geek out together. Have a fantastic day!</p>
+
+				<div>
+					<Social platform="github" username="tiagoalvarezschiaffino"/>
+					<Social platform="linkedin" username="tiago-alvarez-schiaffino"/>
+					<Social platform="linktree" username="t.alvarezschiaffino"/>
+				</div>
+			</div>
+		</div>
+
+		<Separator />
+
+		<div class="flex flex-col">
+			<h1 class="font-bold text-2xl block mb-5">Featured</h1>
+
+			<div>
+				<PostDescription
+					postCategory="ExampleCategory"
+					postDate="March 07 | 18:00"
+					postDescription="lorem impsumlorem impsumlorem impsumlorem impsumlorem impsumlorem impsumlorem impsum"
+					postTitle="ExampleTitle"
+					postUrl="/blog/post-1"
+				/>
+
+				{
+					featured_posts.items?.map((item: any) => (
+						<PostDescription
+							postURL={`${API_URL}/api/v2/posts/${item.id}`}
+							postTitle={item.title}
+							postDate={item.meta.first_published_at}
+							postDescription={item.intro}
+						/>
+                    ))
+                    
+                }
+			</div>
+		</div>
+
+		<Separator />
+
+		<div class="flex flex-col">
+			<h1 class="font-bold text-2xl block mb-5">Latest posts</h1>
+
+			<div>
+
+				{
+                    
+                    latest_posts.items?.map((item: any) => (
+						<PostDescription
+							postTitle={item.title}
+							postDate={item.meta.first_published_at}
+							postDescription={item.intro}
+						/>
+                    ))
+                    
+                }
+			</div>
+		</div>
+	</main>
+</Layout>
