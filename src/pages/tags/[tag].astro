@@ -3,8 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import PostDescription from "../../components/PostDescription.astro";
 export async function getStaticPaths() {
     const API_URL = import.meta.env.API_URL;
-    const tags_data = await fetch (`${API_URL}/api/v2/tags`);
-    const tags = await tags_data.json();
+    const tags = await fetch (`${API_URL}/api/v2/tags`).then(response => response.json());
     return await Promise.all(
         tags.items.map(async (tag) => {
             const taggedPosts = await fetch (`${API_URL}/api/v2/posts/?tags=${tag.id}&fields=intro`).then(response => response.json());
@@ -20,14 +19,14 @@ const {posts} = Astro.props;
 ---
 <Layout pageTitle={tag}>
     <h2 class="text-2xl mb-5">
-        Posts tagged with 
+        Posts tagged with:
         <span class="font-bold text-[#D81159] hover:border-b-4 hover:border-[#FF80CC] hover:border-dashed">
             { `#${tag}` }
         </span>
     </h2>
 
     {
-        posts.results?.map((post) => 
+        posts.items?.map((post) => 
             <PostDescription
                 postURL={`/posts/${post.meta.slug}`}
                 postTitle={post.title}
@@ -36,5 +35,4 @@ const {posts} = Astro.props;
             />
         )
     }
-
   </Layout>

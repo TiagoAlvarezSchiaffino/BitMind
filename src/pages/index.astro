@@ -6,10 +6,10 @@ import PostDescription from '../components/PostDescription.astro';
 
 const API_URL = import.meta.env.API_URL;
 
-const featured_posts_data = await fetch (`${API_URL}/api/v2/posts/?featured=true&limit=3&fields=intro`);
+const featured_posts_data = await fetch (`${API_URL}/api/v2/posts/?featured=true&fields=intro&limit=3`);
 const featured_posts = await featured_posts_data.json();
 
-const latest_posts_data = await fetch (`${API_URL}/api/v2/posts/?limit=3&fields=intro`);
+const latest_posts_data = await fetch (`${API_URL}/api/v2/posts/?fields=intro&limit=3`);
 const latest_posts = await latest_posts_data.json();
 
 const pageTitle = 'Blog'
@@ -20,7 +20,7 @@ const pageTitle = 'Blog'
 		<div class="flex justify-center items-center md:justify-start md:flex-row flex-col md:space-x-5">
 			<img class="w-64 lg:me-5 mb-5 md:mb-0" src="/User.jpg" alt="Anime user photo">
 			<div>
-				<h1 class="text-3xl block mb-3">Well, well, well... What a pleasant surprise to see you here.</h1>
+				<h1 class="text-3xl font-bold block mb-3">Well, well, well... What a pleasant surprise to see you here.</h1>
 				
 				<p class="mb-3">I'm Tiago Alvarez Schiaffino! When I'm not coding or diving into tech, I'm gaming, reading books, or getting active with some sport.</p>
 				<p class="mb-3">Started coding at 17, and has been proudly self-taught for 2 years.</p>
@@ -40,21 +40,14 @@ const pageTitle = 'Blog'
 			<h1 class="font-bold text-2xl block mb-5">Featured</h1>
 
 			<div>
-				<PostDescription
-					postCategory="ExampleCategory"
-					postDate="March 07 | 18:00"
-					postDescription="lorem impsumlorem impsumlorem impsumlorem impsumlorem impsumlorem impsumlorem impsum"
-					postTitle="ExampleTitle"
-					postUrl="/blog/post-1"
-				/>
 
 				{
-					featured_posts.items?.map((item: any) => (
+					featured_posts.items?.map((post) => (
 						<PostDescription
-							postURL={`${API_URL}/api/v2/posts/${item.id}`}
-							postTitle={item.title}
-							postDate={item.meta.first_published_at}
-							postDescription={item.intro}
+							postURL={`/posts/${post.meta.slug}`}
+							postTitle={post.title}
+							postDate={post.meta.first_published_at}
+							postDescription={post.intro}
 						/>
                     ))
                     
@@ -71,15 +64,23 @@ const pageTitle = 'Blog'
 
 				{
                     
-                    latest_posts.items?.map((item: any) => (
+                    latest_posts.items?.map((post) => (
 						<PostDescription
-							postTitle={item.title}
-							postDate={item.meta.first_published_at}
-							postDescription={item.intro}
+							postURL={`/posts/${post.meta.slug}`}
+							postTitle={post.title}
+							postDate={post.meta.first_published_at}
+							postDescription={post.intro}
 						/>
                     ))
                     
                 }
+			</div>
+
+			<div class="flex justify-center">
+				<a href="/posts/" class="text-bold hover:text-[#FF80CC]">
+				All the posts
+				<i></i>
+				</a>
 			</div>
 		</div>
 	</main>
