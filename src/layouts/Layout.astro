@@ -17,6 +17,12 @@ const {pageTitle} = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		<meta property='og:title' content='BitMind'/>
+		<meta property='og:image' content=''/>
+		<meta property='og:description' content=""/>
+		<meta property='og:url' content=''/>
+		<meta property='og:image:width' content='' />
+		<meta property='og:image:height' content='' />
 		<title>{pageTitle} - BitMind</title>
 
     <ViewTransitions />
@@ -53,6 +59,18 @@ const {pageTitle} = Astro.props;
           	scroll-behavior: smooth;
 			font-family: 'Fira Code Variable', monospace;
         }
+
+    ul{
+			@apply list-disc list-inside bg-slate-950 p-3
+		}
+
+		li {
+			@apply mb-3
+		}
+
+		a {
+			@apply text-[#D81159] hover:text-[#FF80CC]
+		}
 
         @media (prefers-reduced-motion: reduce) {
           html {
