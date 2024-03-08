@@ -4,6 +4,8 @@ import Footer from '../components/Footer.astro';
 import Separator from '../components/Separator.astro';
 import Newsletter from '../components/Newsletter.astro'
 
+import { ViewTransitions } from 'astro:transitions';
+
 import '@fontsource-variable/fira-code';
 
 const {pageTitle} = Astro.props;
@@ -16,6 +18,8 @@ const {pageTitle} = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle} - BitMind</title>
+
+    <ViewTransitions />
 	</head>
 
 	<body>
