@@ -1,21 +1,15 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import PostDescription from "../../components/PostDescription.astro";
-export async function getStaticPaths() {
-    const API_URL = import.meta.env.API_URL;
-    const tags = await fetch (`${API_URL}/api/v2/tags`).then(response => response.json());
-    return await Promise.all(
-        tags.items.map(async (tag) => {
-            const taggedPosts = await fetch (`${API_URL}/api/v2/posts/?tags=${tag.id}&fields=intro`).then(response => response.json());
-            return {
-                params: { tag: `${tag.name}` },
-                props: { posts: taggedPosts },
-            }
-        })
-    );     
-}
+
+const API_URL = import.meta.env.API_URL;
+
 const { tag } = Astro.params;
-const {posts} = Astro.props;
+
+const tagByName = await fetch (`${API_URL}/api/v2/tags/?name=${tag}`).then(response => response.json());
+const tagID = tagByName.items[0].id;
+
+const posts = await fetch (`${API_URL}/api/v2/posts/?tags=${tagID}&fields=intro`).then(response => response.json());
 ---
 <Layout pageTitle={tag}>
     <h2 class="text-2xl mb-5">
@@ -24,6 +18,13 @@ const {posts} = Astro.props;
             { `#${tag}` }
         </span>
     </h2>
+
+    {
+        posts.meta.total_count == 0 ? 
+        <h2 class="text-xl"></h2>
+        :
+        <Fragment />
+    }
 
     {
         posts.items?.map((post) => 
