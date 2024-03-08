@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 
 const API_URL = import.meta.env.API_URL;
 
@@ -15,6 +16,10 @@ const pageTitle = 'Tags Index';
                 <i></i>
                 Return
             </a>
+            <Breadcrumbs linkList={[
+                {label: "Tags"}
+            ]} 
+            />
 
             <h2 class="text-3xl font-bold">Tags</h2>
             <p>All the tags used.</p>

@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import PostDescription from '../../components/PostDescription.astro';
 import PaginationArrows from '../../components/PaginationArrows.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 
 const API_URL = import.meta.env.API_URL;
 
@@ -12,17 +13,18 @@ const pageTitle = 'Posts Index';
 <Layout pageTitle={pageTitle}>
     <main>
         <div class="mb-5">
-            <a class="text-md hover:text-gray-400" href="/">
-                <i></i>
-                Return
-            </a>
+            <Breadcrumbs linkList={[
+                {label: "Posts"}
+            ]} 
+            />
+            
             <h2 class="text-2xl font-bold">Posts</h2>
             <p>All the articles published.</p>
         </div>
 
         <div class="flex lg:flex-row flex-col flex-wrap">
             {
-                page.items.map((post) => (
+                posts.results?.map((post) => (
                     <PostDescription
                         postURL = {`/posts/${post.meta.slug}`}
                         postTitle={post.title}
