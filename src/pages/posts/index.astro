@@ -1,14 +1,16 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import PostDescription from '../../components/PostDescription.astro';
-import PaginationArrows from '../../components/PaginationArrows.astro';
+import PaginationArrowsForPosts from '../../components/PaginationArrowsForPosts.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 
 const API_URL = import.meta.env.API_URL;
 
-const posts = await fetch (`${API_URL}/api/v2/posts/?fields=intro&limit=3`).then(response => response.json());
+const posts = await fetch (`${API_URL}/api/v2/posts/?fields=intro`).then(response => response.json());
 
-const pageTitle = 'Posts Index';
+const next = posts.next;
+
+const pageTitle = 'Posts Index'
 ---
 <Layout pageTitle={pageTitle}>
     <main>
@@ -24,7 +26,7 @@ const pageTitle = 'Posts Index';
 
         <div class="flex lg:flex-row flex-col flex-wrap">
             {
-                posts.results?.map((post) => (
+                posts.results.map((post) => (
                     <PostDescription
                         postURL = {`/posts/${post.meta.slug}`}
                         postTitle={post.title}
@@ -35,5 +37,7 @@ const pageTitle = 'Posts Index';
                 
             }
         </div>
+
+        <PaginationArrowsForPosts next={next} />
     </main>
 </Layout>

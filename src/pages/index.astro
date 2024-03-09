@@ -6,9 +6,9 @@ import PostDescription from '../components/PostDescription.astro';
 
 const API_URL = import.meta.env.API_URL;
 
-const featured_posts = await fetch (`${API_URL}/api/v2/posts/?featured=true&fields=intro&limit=3`).then(response => response.json());
+const featured_posts = await fetch (`${API_URL}/api/v2/posts/?featured=true&fields=intro`).then(response => response.json());
 
-const latest_posts = await fetch (`${API_URL}/api/v2/posts/?fields=intro&limit=3`).then(response => response.json());
+const latest_posts = await fetch (`${API_URL}/api/v2/posts/?fields=intro`).then(response => response.json());
 
 const pageTitle = 'Blog'
 ---
@@ -16,7 +16,7 @@ const pageTitle = 'Blog'
 <Layout pageTitle={pageTitle}>
 	<main>
 		<div class="flex justify-center items-center md:justify-start md:flex-row flex-col md:space-x-5">
-			<img class="w-64 lg:me-5 mb-5 md:mb-0" src="/User.jpg" alt="Anime user photo">
+			<img class="w-64 lg:me-5" src="/User.jpg" alt="Anime user photo">
 			<div>
 				<h1 class="text-3xl font-bold block mb-3">Well, well, well... What a pleasant surprise to see you here.</h1>
 				
@@ -41,9 +41,9 @@ const pageTitle = 'Blog'
 			<h1 class="font-bold text-2xl block mb-5">Featured</h1>
 
 			<div>
-
 				{
-					featured_posts.results?.map((post) => (
+                    
+                    featured_posts.results?.map((post) => (
 						<PostDescription
 							postURL={`/posts/${post.meta.slug}`}
 							postTitle={post.title}

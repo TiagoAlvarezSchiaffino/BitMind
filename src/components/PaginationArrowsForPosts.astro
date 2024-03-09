@@ -1,0 +1,39 @@
+---
+const {prev, next} = Astro.props;
+
+const isPrevUndefined = prev == undefined ? true : false;
+const prev_page = isPrevUndefined || prev.slice(-1) == "o" ? "/posts" : `/posts/page${prev.slice(-1)}`;
+const next_page = next == null ? undefined : `/posts/page${next.slice(-1)}`;
+---
+<div class="flex justify-center mt-10">
+    <p class="font-bold text-lg">
+        {
+            isPrevUndefined ? 
+                <span class="me-3 text-slate-500" >
+                    <i></i>
+                    Prev.
+                </span>
+            :
+                <a class="me-3 text-white hover:text-violet-300" href={prev_page}>
+                    <i></i>
+                    Prev.
+                </a>
+        }
+
+    </p>
+    <p class="font-bold text-lg">
+        {
+            next == undefined ?
+                <span class="me-3 text-slate-500">
+                    Next.
+                    <i></i>
+                </span>
+            :
+                <a class="me-3 text-white hover:text-violet-300" href={next_page}>
+                    Next.
+                    <i></i>
+                </a>
+        }
+
+    </p>
+</div>

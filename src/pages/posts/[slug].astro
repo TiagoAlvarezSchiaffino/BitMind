@@ -11,7 +11,7 @@ const postBySlug = await fetch (`${API_URL}/api/v2/posts/?slug=${slug}`).then(re
 
 const postID = postBySlug.results[0].id;
 
-const post = await fetch (`${API_URL}/api/v2/posts/${postID}`).then(res => res.json());
+const post  = await fetch (`${API_URL}/api/v2/posts/${postID}`).then(res => res.json());
 
 const prog_language = post.programming_language;
 ---
@@ -52,7 +52,7 @@ const prog_language = post.programming_language;
                : item.type == "video" ? <iframe src={item.value} frameborder="0" class="w-full aspect-video my-7"></iframe>
                : <div>{item.value}</div>
             ))
-
+            
         }
     </div>
 
@@ -61,12 +61,12 @@ const prog_language = post.programming_language;
         <div class="flex flex-wrap">
             {
                 post.tags.map((tag) => (
-                <a href={`/tags/${tag}`} class=" me-5 mb-3 md:mb-5 font-bold text-[#D81159] hover:border-b-4 hover:border-[#FF80CC] hover:border-dashed">
+                    <a href={`/tags/${tag}`} class=" me-5 mb-3 md:mb-5 font-bold text-[#D81159] hover:border-b-4 hover:border-[#FF80CC] hover:border-dashed">
                         {`#${tag}`}
                     </a>
                 ))
             }
-        </div>     
+        </div>  
     </div>
 
     <Author />
